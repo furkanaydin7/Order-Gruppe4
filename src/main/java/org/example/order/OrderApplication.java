@@ -30,7 +30,7 @@ public class OrderApplication {
     public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
         return args -> {
             Book book = restTemplate.getForObject(
-                    "http://localhost:8080/api/books", Book.class);
+                    "http://localhost:8080/api/books/search", Book.class);
             log.info(book.toString());
         };
     }
