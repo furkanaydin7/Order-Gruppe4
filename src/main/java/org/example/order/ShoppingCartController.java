@@ -26,7 +26,7 @@ public class ShoppingCartController {
     @GetMapping("/cart")
     public String viewCart(Model model) {
         model.addAttribute("cartBooks", shoppingCart.getBooks());
-        return "cart";
+        return "Cart_Thymeleaf";
     }
 
     @PostMapping("/cart/add")
