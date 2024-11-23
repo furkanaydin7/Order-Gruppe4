@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Warenkorb</title>
+  <!--<link rel="stylesheet" th:href="@{/css/style.css}"> -->
+</head>
+<body>
+<h1>Warenkorb</h1>
+
+<div th:if="${cartBooks != null and cartBooks.size() > 0}">
+  <table>
+    <thead>
+    <tr>
+      <th>ISBN</th>
+      <th>Titel</th>
+      <th>Autor</th>
+      <th>Aktion</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book : ${cartBooks}">
+      <td th:text="${book.isbn}">ISBN</td>
+      <td th:text="${book.title}">Titel</td>
+      <td th:text="${book.author}">Autor</td>
+      <td>
+        <form th:action="@{/cart/remove}" method="post">
+          <input type="hidden" name="isbn" th:value="${book.isbn}">
+          <button type="submit">Entfernen</button>
+        </form>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div th:if="${cartBooks == null or cartBooks.size() == 0}">
+  <p>Ihr Warenkorb ist leer.</p>
+</div>
+
+<a th:href="@{/}">Zurück zum Katalog</a>
+
+</body>
+</html>
