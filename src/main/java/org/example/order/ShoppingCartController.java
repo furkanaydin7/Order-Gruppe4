@@ -30,14 +30,14 @@ public class ShoppingCartController {
         return "Cart_Tyhmeleaf";
     }
 
-    @GetMapping("/cart/add/{isbn}")
+    @PostMapping("/cart/add/{isbn}")
     public String addToCart(@PathVariable String isbn) {
         Book book = catalogClient.getBook(isbn);
         shoppingCart.addBook(book);
         return "redirect:/cart";
     }
 
-    @GetMapping("/cart/remove/{isbn}")
+    @PostMapping("/cart/remove/{isbn}")
     public String removeFromCart(@PathVariable String isbn) {
         shoppingCart.removeBook(isbn);
         return "redirect:/cart";
