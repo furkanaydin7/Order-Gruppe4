@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.annotation.SessionScope;
@@ -26,18 +27,18 @@ public class ShoppingCartController {
     @GetMapping("/cart")
     public String viewCart(Model model) {
         model.addAttribute("cartBooks", shoppingCart.getBooks());
-        return "Cart_Thymeleaf";
+        return "Cart_Tyhmeleaf";
     }
 
-    @PostMapping("/cart/add")
-    public String addToCart(@RequestParam String isbn) {
+    @GetMapping("/cart/add/{isbn}")
+    public String addToCart(@PathVariable String isbn) {
         Book book = catalogClient.getBook(isbn);
         shoppingCart.addBook(book);
         return "redirect:/cart";
     }
 
-    @PostMapping("/cart/remove")
-    public String removeFromCart(@RequestParam String isbn) {
+    @GetMapping("/cart/remove/{isbn}")
+    public String removeFromCart(@PathVariable String isbn) {
         shoppingCart.removeBook(isbn);
         return "redirect:/cart";
     }

@@ -14,7 +14,7 @@ public class CatalogController {
         this.catalogClient = catalogClient;
     }
 
-    @GetMapping("/")
+    @GetMapping
     public String catalog(Model model, @RequestParam(required = false) String keywords) {
         if (keywords != null) {
             model.addAttribute("books", catalogClient.findBooks(keywords));

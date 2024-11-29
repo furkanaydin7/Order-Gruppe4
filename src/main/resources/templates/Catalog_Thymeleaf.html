@@ -28,8 +28,7 @@
             <td th:text="${book.title}">Titel</td>
             <td th:text="${book.author}">Autor</td>
             <td>
-                <form th:action="@{/cart/add}" method="post">
-                    <input type="hidden" name="isbn" th:value="${book.isbn}">
+                <form th:action="@{/cart/add/{isbn}(isbn=${book.isbn})}" method="get">
                     <button type="submit">Zum Warenkorb hinzufügen</button>
                 </form>
             </td>

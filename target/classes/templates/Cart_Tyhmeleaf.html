@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Warenkorb</title>
-  <!--<link rel="stylesheet" th:href="@{/css/style.css}"> -->
+  <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 <h1>Warenkorb</h1>
@@ -24,8 +24,7 @@
       <td th:text="${book.title}">Titel</td>
       <td th:text="${book.author}">Autor</td>
       <td>
-        <form th:action="@{/cart/remove}" method="post">
-          <input type="hidden" name="isbn" th:value="${book.isbn}">
+        <form th:action="@{/cart/remove/{isbn}(isbn=${book.isbn})}" method="post">
           <button type="submit">Entfernen</button>
         </form>
       </td>
