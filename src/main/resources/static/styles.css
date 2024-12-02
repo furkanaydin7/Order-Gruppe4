@@ -1,0 +1,97 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+h1, h2 {
+    text-align: center;
+    color: #4a90e2;
+    margin-top: 20px;
+}
+
+table {
+    width: 90%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+
+table th {
+    background-color: #4a90e2;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+button {
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #357abd;
+}
+
+form {
+    display: inline;
+}
+
+input[type="text"] {
+    width: 80%;
+    padding: 8px;
+    margin: 10px auto;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+a {
+    display: block;
+    text-align: center;
+    margin: 20px auto;
+    padding: 10px;
+    width: 150px;
+    text-decoration: none;
+    background-color: #4a90e2;
+    color: white;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+a:hover {
+    background-color: #357abd;
+}
+
+p {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+.btn {
+    margin-top: 20px;
+    display: block;
+    text-align: center;
+}
