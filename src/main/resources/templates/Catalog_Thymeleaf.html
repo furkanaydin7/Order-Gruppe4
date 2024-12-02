@@ -7,6 +7,9 @@
 </head>
 <body>
 <h1>Katalog</h1>
+<div th:if="${message}" class="toast">
+    <p th:text="${message}"></p>
+</div>
 <form th:action="@{/search}" method="get">
     <input type="text" name="keywords" placeholder="Suchbegriffe eingeben" required>
     <button type="submit">Suchen</button>

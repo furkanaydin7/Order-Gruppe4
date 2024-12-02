@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.annotation.SessionScope;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +32,11 @@ public class ShoppingCartController {
     }
 
     @PostMapping("/cart/add/{isbn}")
-    public String addToCart(@PathVariable String isbn) {
+    public String addToCart(@PathVariable String isbn, RedirectAttributes redirectAttributes) {
         Book book = catalogClient.getBook(isbn);
         shoppingCart.addBook(book);
-        return "redirect:/cart";
+        redirectAttributes.addFlashAttribute("message", "Das Buch wurde zum Warenkorb hinzugefügt.");
+        return "redirect:/";
     }
 
     @PostMapping("/cart/remove/{isbn}")
