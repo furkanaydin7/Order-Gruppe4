@@ -109,9 +109,7 @@ p {
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     z-index: 1000;
-    opacity: 1;
-    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-    transform: translateY(0);
+    animation: fadeOut 4s ease-in-out forwards; /* 4 Sekunden Animation */
 }
 
 /* Keyframes für die Ausblend-Animation */
