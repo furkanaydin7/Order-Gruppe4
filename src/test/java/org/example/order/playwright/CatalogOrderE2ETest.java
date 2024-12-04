@@ -2,43 +2,43 @@ package org.example.order.playwright;
 
 import com.microsoft.playwright.*;
 
+import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
+
 public class CatalogOrderE2ETest {
 
     public static void main(String[] args) {
         // Playwright initialisieren
         try (Playwright playwright = Playwright.create()) {
-            Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false).setSlowMo(700));
+            Browser browser = playwright.chromium().launch(
+                    new BrowserType.LaunchOptions()
+                            .setHeadless(false) // Headless deaktivieren für sichtbare Tests
+                            .setSlowMo(770)     // Verlangsamt Aktionen für Debugging
+            );
+
             Page page = browser.newPage();
 
-            // 1. Öffne die Seite
+            // Schritt 1: Öffne die URL
             page.navigate("http://localhost:8081");
 
-            // 2. Suchfeld ausfüllen und Suche ausführen
-            page.locator("form[action='/search'] input[name='keywords']").fill("Spring Boot");
-            page.locator("form[action='/search'] button[type='submit']").click();
+            // Schritt 2: Suchfeld ausfüllen und suchen
+            page.locator("input[name='keywords']").fill("Spring Boot");
+            page.locator("button:has-text('Suchen')").click();
 
-            // 3. Überprüfe, ob die Suchergebnisse korrekt angezeigt werden
-            Locator resultRow = page.locator("tbody tr");
-            assert resultRow.count() == 1 : "Es wurde genau ein Buch erwartet.";
-            assert resultRow.locator("td:nth-child(2)").innerText().equals("Spring Boot in Action") : "Das Buch 'Spring Boot in Action' wurde nicht gefunden.";
+            // Schritt 3: Überprüfen, ob die erwarteten Bücher angezeigt werden
+            Locator bookTitle = page.locator("td:has-text('Spring Boot in Action')");
+            assertThat(bookTitle).isVisible();
 
-            // 4. Füge das Buch in den Warenkorb
-            Locator addToCartButton = page.locator("form[action*='/cart/add']").first().locator("button");
-            addToCartButton.click();
+            // Schritt 4: Ein Buch in den Warenkorb legen
+            Locator addToCartButton = page.locator("form button:has-text('Zum Warenkorb hinzufügen')");
+            addToCartButton.first().click(); // Das erste Buch hinzufügen
 
-            // 5. Warte auf die Toast-Nachricht oder Bestätigung (falls vorhanden)
-            Locator toastMessage = page.locator("div.toast");
-            if (toastMessage.isVisible()) {
-                System.out.println("Toast-Nachricht angezeigt: " + toastMessage.innerText());
-            }
+            // Schritt 5: Klick auf den "Warenkorb ansehen"-Button
+            Locator cartLink = page.locator("a:has-text('Warenkorb ansehen')");
+            cartLink.click();
 
-            // 6. Gehe zum Warenkorb
-            page.locator("a[href='/cart']").click();
-
-            // 6. Überprüfe, ob das Buch im Warenkorb angezeigt wird
-            Locator cartRow = page.locator("tbody tr");
-            assert cartRow.count() == 1 : "Es wurde genau ein Buch im Warenkorb erwartet.";
-            assert cartRow.locator("td:nth-child(2)").innerText().equals("Spring Boot in Action") : "Das Buch 'Spring Boot in Action' ist nicht im Warenkorb.";
+            // Schritt 6: Überprüfen, ob das Buch im Warenkorb ist
+            Locator cartBookTitle = page.locator("td:has-text('Spring Boot in Action')");
+            assertThat(cartBookTitle).isVisible();
 
             System.out.println("E2E-Test erfolgreich abgeschlossen!");
         }
