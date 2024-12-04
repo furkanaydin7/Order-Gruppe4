@@ -17,7 +17,7 @@ test('E2E-Test: Buchsuche und Warenkorb-Funktionalität', async ({ page }) => {
     await addToCartButton.nth(0).click();
 
     // Schritt 5: Klick auf den "Warenkorb ansehen"-Button
-    await page.waitForSelector('a:has-text("Warenkorb ansehen")');
+
     const cartLink = page.locator('a', { hasText: 'Warenkorb ansehen' });
     await cartLink.click();
 
