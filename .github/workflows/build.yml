@@ -58,5 +58,5 @@ jobs:
       # Schritt 8: Docker Image pushen
       - name: Push Docker Image
         run: |
-          docker tag order0.0.1-SNAPSHOT:latest ${{ secrets.DOCKER_USERNAME }}/Order:latest
+          docker tag order:0.0.1-SNAPSHOT ${{ secrets.DOCKER_USERNAME }}/Order:latest
           docker push ${{ secrets.DOCKER_USERNAME }}/Order:latest
