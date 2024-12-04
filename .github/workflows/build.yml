@@ -58,5 +58,6 @@ jobs:
       # Schritt 8: Docker Image pushen
       - name: Push Docker Image
         run: |
-          docker tag <app-name>:latest ${{ secrets.DOCKER_USERNAME }}/<repo-name>:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/<repo-name>:latest
+          IMAGE_NAME=${{ secrets.DOCKER_USERNAME }}/order:${{ github.sha }}
+          docker tag order:latest $IMAGE_NAME
+          docker push $IMAGE_NAME
