@@ -35,7 +35,7 @@ jobs:
 
       # Schritt 5: Build Docker Image
       - name: Build Docker Image
-        run: docker build -t order:latest
+        run: docker build -t order:latest .
 
       # Schritt 4: Tests ausführen
       - name: Run Unit Tests
