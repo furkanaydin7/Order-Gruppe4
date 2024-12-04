@@ -29,13 +29,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      # Schritt 4: Build the application
-      - name: Build with Maven
-        run: mvn clean package -DskipTests
-
-      # Schritt 5: Build Docker Image
+      # Schritt 3: Maven-Build und Docker Image erstellen
       - name: Build Docker Image
-        run: docker build -t order:latest .
+        run: mvn spring-boot:build-image -DskipTests
 
       # Schritt 4: Tests ausführen
       - name: Run Unit Tests
@@ -62,5 +58,5 @@ jobs:
       # Schritt 8: Docker Image pushen
       - name: Push Docker Image
         run: |
-          docker tag order:latest ${{ secrets.DOCKER_USERNAME }}/order:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/order:latest
+          docker tag <app-name>:latest ${{ secrets.DOCKER_USERNAME }}/<repo-name>:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/<repo-name>:latest
