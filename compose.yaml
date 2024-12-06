@@ -10,7 +10,7 @@ services:
       - "5432:5432"
 
   catalog:
-    image: "catalog:0.0.1-SNAPSHOT"
+    image: "catalog:latest"
     ports:
       - "8080:8080"
     environment:
@@ -21,7 +21,7 @@ services:
       - db
 
   order:
-    image: "order:0.0.1-SNAPSHOT"
+    image: "order:latest"
     ports:
       - "8081:8081"
     environment:
