@@ -10,7 +10,7 @@ services:
       - "5432:5432"
 
   catalog:
-    image: "catalog:latest"
+    image: "furkan7/catalog:latest"
     ports:
       - "8080:8080"
     environment:
@@ -21,7 +21,7 @@ services:
       - db
 
   order:
-    image: "order:latest"
+    image: "furkan7/order:latest"
     ports:
       - "8081:8081"
     environment:
