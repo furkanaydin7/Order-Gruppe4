@@ -28,3 +28,4 @@ services:
       CATALOG_URL: "http://catalog:8080"
     depends_on:
       - catalog
+    pull_policy: always
