@@ -1,0 +1,6 @@
+org/example/order/OrderApplication.class
+org/example/order/CatalogClient.class
+org/example/order/CatalogController.class
+org/example/order/ShoppingCartController.class
+org/example/order/Book.class
+org/example/order/ShoppingCart.class
