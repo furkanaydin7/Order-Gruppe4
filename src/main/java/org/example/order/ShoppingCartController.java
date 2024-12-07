@@ -31,7 +31,7 @@ public class ShoppingCartController {
         return "Cart_Tyhmeleaf";
     }
 
-    @PostMapping("/cart/add/{isbn}")
+    @GetMapping("/cart/add/{isbn}")
     public String addToCart(@PathVariable String isbn, RedirectAttributes redirectAttributes) {
         Book book = catalogClient.getBook(isbn);
         shoppingCart.addBook(book);
