@@ -25,8 +25,14 @@ public class CatalogController {
     }
 
     @GetMapping("/search")
-    public String searchBooks(@RequestParam String keywords, Model model) {
-        model.addAttribute("books", catalogClient.findBooks(keywords));
+    public String searchBooks(@RequestParam(required = false) String keywords, Model model) {
+        if (keywords.isEmpty()) {
+            // Wenn das Suchfeld leer ist, alle Bücher anzeigen
+            model.addAttribute("books", catalogClient.findBooks(""));
+        } else {
+            // Suche nach den eingegebenen Keywords
+            model.addAttribute("books", catalogClient.findBooks(keywords));
+        }
         return "Catalog_Thymeleaf";
     }
 }

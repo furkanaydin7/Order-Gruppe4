@@ -11,7 +11,7 @@
     <p th:text="${message}"></p>
 </div>
 <form th:action="@{/search}" method="get">
-    <input type="text" name="keywords" placeholder="Suchbegriffe eingeben" required>
+    <input type="text" name="keywords" placeholder="Nach Büchern suchen..." required>
     <button type="submit">Suchen</button>
 </form>
 <div th:if="${books != null}">
