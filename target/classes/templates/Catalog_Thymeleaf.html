@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Katalog</title>
+    <link th:href="@{/styles.css}" rel="stylesheet"/>
+</head>
+<body>
+<h1>Katalog</h1>
+<div th:if="${message}" class="toast">
+    <p th:text="${message}"></p>
+</div>
+<form th:action="@{/search}" method="get">
+    <input type="text" name="keywords" placeholder="Nach Büchern suchen..." required>
+    <button type="submit">Suchen</button>
+</form>
+<div th:if="${books != null}">
+    <h2>Suchergebnisse</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>ISBN</th>
+            <th>Titel</th>
+            <th>Autor</th>
+            <th>Aktion</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="book : ${books}">
+            <td th:text="${book.isbn}">ISBN</td>
+            <td th:text="${book.title}">Titel</td>
+            <td th:text="${book.author}">Autor</td>
+            <td>
+                <form th:action="@{/cart/add/{isbn}(isbn=${book.isbn})}" method="get">
+                    <button type="submit">Zum Warenkorb hinzufügen</button>
+                </form>
+            </td>
+        </tr>
+        <a th:href="@{/cart}" class="btn">Warenkorb ansehen</a>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="de"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CatalogController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">order</a> &gt; <a href="index.source.html" class="el_package">org.example.order</a> &gt; <span class="el_source">CatalogController.java</span></div><h1>CatalogController.java</h1><pre class="source lang-java linenums">package org.example.order;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+@Controller
+public class CatalogController {
+
+    private final CatalogClient catalogClient;
+
+<span class="fc" id="L13">    public CatalogController(CatalogClient catalogClient) {</span>
+<span class="fc" id="L14">        this.catalogClient = catalogClient;</span>
+<span class="fc" id="L15">    }</span>
+
+    @GetMapping
+    public String catalog(Model model, @RequestParam(required = false) String keywords) {
+<span class="nc bnc" id="L19" title="All 2 branches missed.">        if (keywords != null) {</span>
+<span class="nc" id="L20">            model.addAttribute(&quot;books&quot;, catalogClient.findBooks(keywords));</span>
+        } else {
+<span class="nc" id="L22">            model.addAttribute(&quot;books&quot;, catalogClient.findBooks(&quot;&quot;)); // Leere Suche für alle Bücher</span>
+        }
+<span class="nc" id="L24">        return &quot;Catalog_Thymeleaf&quot;;</span>
+    }
+
+    @GetMapping(&quot;/search&quot;)
+    public String searchBooks(@RequestParam(required = false) String keywords, Model model) {
+<span class="nc bnc" id="L29" title="All 2 branches missed.">        if (keywords.isEmpty()) {</span>
+            // Wenn das Suchfeld leer ist, alle Bücher anzeigen
+<span class="nc" id="L31">            model.addAttribute(&quot;books&quot;, catalogClient.findBooks(&quot;&quot;));</span>
+        } else {
+            // Suche nach den eingegebenen Keywords
+<span class="nc" id="L34">            model.addAttribute(&quot;books&quot;, catalogClient.findBooks(keywords));</span>
+        }
+<span class="nc" id="L36">        return &quot;Catalog_Thymeleaf&quot;;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

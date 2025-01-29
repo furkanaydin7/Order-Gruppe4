@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="de"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CatalogClient.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">order</a> &gt; <a href="index.source.html" class="el_package">org.example.order</a> &gt; <span class="el_source">CatalogClient.java</span></div><h1>CatalogClient.java</h1><pre class="source lang-java linenums">package org.example.order;
+
+import io.github.resilience4j.retry.annotation.Retry;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestClient;
+
+@Component
+public class CatalogClient {
+
+    private final RestClient restClient;
+    private final String catalogUrl;
+
+<span class="fc" id="L14">    public CatalogClient(RestClient.Builder restClientBuilder, @Value(&quot;${catalog.url}&quot;) String catalogUrl) {</span>
+<span class="fc" id="L15">        this.restClient = restClientBuilder.build();</span>
+<span class="fc" id="L16">        this.catalogUrl = catalogUrl;</span>
+<span class="fc" id="L17">    }</span>
+
+    @Retry(name = &quot;catalogService&quot;, fallbackMethod = &quot;fallbackFindBooks&quot;)
+    public Book[] findBooks(String keywords) {
+<span class="pc" id="L21">        return restClient</span>
+<span class="fc" id="L22">                .get()</span>
+<span class="fc" id="L23">                .uri(&quot;%s/api/books?keywords=%s&quot;.formatted(catalogUrl, keywords))</span>
+<span class="fc" id="L24">                .retrieve()</span>
+<span class="nc" id="L25">                .body(Book[].class);</span>
+    }
+
+    @Retry(name = &quot;catalogService&quot;, fallbackMethod = &quot;fallbackGetBook&quot;)
+    public Book getBook(String isbn) {
+<span class="pc" id="L30">        return restClient</span>
+<span class="fc" id="L31">                .get()</span>
+<span class="fc" id="L32">                .uri(&quot;%s/api/books/%s&quot;.formatted(catalogUrl, isbn))</span>
+<span class="fc" id="L33">                .retrieve()</span>
+<span class="nc" id="L34">                .body(Book.class);</span>
+    }
+
+    // Fallback für findBooks
+    public Book[] fallbackFindBooks(String keyword, Throwable throwable) {
+<span class="fc" id="L39">        System.err.println(&quot;Fallback für findBooks aufgerufen: &quot; + throwable.getMessage());</span>
+<span class="fc" id="L40">        return new Book[]{};</span>
+    }
+
+    // Fallback für getBook
+    public Book fallbackGetBook(String isbn, Throwable throwable) {
+<span class="fc" id="L45">        System.err.println(&quot;Fallback für getBook aufgerufen: &quot; + throwable.getMessage());</span>
+<span class="fc" id="L46">        return new Book(isbn, &quot;N/A&quot;, &quot;N/A&quot;, &quot;N/A&quot;); // Rückgabe eines Platzhalter-Buchs</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
