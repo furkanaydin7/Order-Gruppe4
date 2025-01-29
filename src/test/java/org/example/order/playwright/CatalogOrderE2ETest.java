@@ -15,7 +15,7 @@ public class CatalogOrderE2ETest {
                             .setSlowMo(770)     // Verlangsamt Aktionen für Debugging
             );
 
-            Page page = browser.newPage();
+            Page page = browser.newPage();//
 
             // Schritt 1: Öffne die URL
             page.navigate("http://localhost:8081");
